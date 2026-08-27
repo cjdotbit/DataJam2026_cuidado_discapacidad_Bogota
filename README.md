@@ -4,6 +4,10 @@
 
 **DataJam Multiuniversitario 2026 — Edición 3**
 
+<div align="center">
+  <img src="pictures/DataJam-edicion-3-2026.png" alt="LogoDataJam" width="700" />
+</div>
+
 **Autores:** María Clareth Méndez Ramos, Jose Carlos Arroyo Cantero & Valentina Terán Barreto
 
 ---
@@ -163,6 +167,7 @@ La finalidad es pasar de un diagnóstico general sobre la feminización del cuid
 DataJam2026-cuidado-discapacidad-Bogota/
 │
 ├── README.md
+├── pictures
 ├── DataJam2026_cuidado_discapacidad_Bogota.ipynb
 └── .gitignore
 ```
@@ -171,37 +176,7 @@ El notebook contiene el proceso completo de análisis, desde la descarga de las 
 
 ---
 
-##  Cómo ejecutar el proyecto
-
-### Opción 1 — Google Colab
-
-Abrir el archivo:
-
-`DataJam2026_cuidado_discapacidad_Bogota.ipynb`
-
-en Google Colab y ejecutar las celdas en orden.
-
-El notebook está preparado para descargar las fuentes de datos automáticamente.
-
-### Opción 2 — Jupyter Notebook
-
-Clonar el repositorio:
-
-```bash
-git clone https://github.com/USUARIO/DataJam2026-cuidado-discapacidad-Bogota.git
-```
-
-Instalar las dependencias necesarias y abrir el notebook:
-
-```bash
-jupyter notebook DataJam2026_cuidado_discapacidad_Bogota.ipynb
-```
-
-> La disponibilidad de las fuentes externas depende de que los servicios públicos utilizados continúen disponibles y mantengan sus direcciones actuales.
-
----
-
-## 📚 Fuentes
+##  Fuentes
 
 * Secretaría Distrital de Salud — Observatorio de Salud de Bogotá: población con discapacidad certificada en Bogotá D.C.
 * Datos Abiertos Bogotá — Proyecciones y retroproyecciones de población 2005–2035.
@@ -210,7 +185,7 @@ jupyter notebook DataJam2026_cuidado_discapacidad_Bogota.ipynb
 
 ---
 
-## 👥 Autores
+##  Autores
 
 **María Clareth Méndez Ramos**
 **Jose Carlos Arroyo Cantero**
