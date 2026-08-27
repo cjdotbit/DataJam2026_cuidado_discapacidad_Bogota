@@ -5,10 +5,21 @@
 **DataJam Multiuniversitario 2026 — Edición 3**
 
 <div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/cjdotbit/DataJam2026_cuidado_discapacidad_Bogota/blob/main/DataJam2026_cuidado_discapacidad_Bogota.ipynb)
+
+**Universidad de Sucre · Sincelejo-Sucre, Colombia**
+
+</div>
+<div align="center">
   <img src="pictures/DataJam-edicion-3-2026.png" alt="LogoDataJam" width="700" />
 </div>
 
+
 **Autores:** María Clareth Méndez Ramos, Jose Carlos Arroyo Cantero & Valentina Terán Barreto
+
+**DashBoard:** Acceso al panel de visualización: [📊 **Ver Dashboard**](https://cjdotbit.github.io/DataJam2026_cuidado_discapacidad_Bogota/dashboard/)
 
 ---
 
