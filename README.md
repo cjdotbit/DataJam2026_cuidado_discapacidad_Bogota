@@ -175,11 +175,20 @@ La finalidad es pasar de un diagnóstico general sobre la feminización del cuid
 ##  Estructura del repositorio
 
 ```text
-DataJam2026-cuidado-discapacidad-Bogota/
+DataJam2026_cuidado_discapacidad_Bogota/
 │
 ├── README.md
-├── pictures
+│
+├── dashboard/
+│   ├── figuras
+│   ├── tablas
+│   └── index.html
+│
+├── pictures/
+│   └── ...
+│
 ├── DataJam2026_cuidado_discapacidad_Bogota.ipynb
+│
 └── .gitignore
 ```
 
