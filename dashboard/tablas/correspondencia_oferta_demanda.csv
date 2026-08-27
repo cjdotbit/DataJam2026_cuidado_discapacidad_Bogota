@@ -1,0 +1,21 @@
+COD_LOC;IFC;TCC;requieren_ayuda;POBLACION;NOMBRE_LOCALIDAD;IFC_std;n_cuidado;base_suficiente;MANZANAS;SERVICIOS;OC;ICOD;clasificacion
+1;87.196;0.354;1447;586366;Usaquén;85.181;1447.0;True;1.0;20.0;3.411;0.909;Revisar cobertura o subregistro
+2;87.888;0.275;311;162226;Chapinero;84.648;311.0;True;1.0;5.0;3.082;1.278;Revisar cobertura o subregistro
+3;73.363;0.585;460;113327;Santa Fe;82.825;460.0;True;1.0;1.0;0.882;-0.747;Prioridad de expansión
+4;85.668;0.812;2242;394779;San Cristóbal;84.607;2242.0;True;3.0;10.0;2.533;-1.692;Prioridad de expansión
+5;86.334;0.882;2425;401629;Usme;88.0;2425.0;True;1.0;8.0;1.992;-2.159;Prioridad de expansión
+6;88.885;0.708;872;176572;Tunjuelito;86.362;872.0;True;1.0;1.0;0.566;-1.461;Prioridad de expansión
+7;86.187;0.638;3362;773327;Bosa;86.933;3362.0;True;2.0;19.0;2.457;-0.776;Prioridad de expansión
+8;85.382;0.484;3705;1104934;Kennedy;86.356;3705.0;True;2.0;13.0;1.177;-0.158;Sostener y monitorear
+9;87.455;0.363;979;385603;Fontibón;85.245;979.0;True;0.0;8.0;2.075;0.636;Revisar cobertura o subregistro
+10;79.46;0.505;2934;831376;Engativá;81.695;2934.0;True;3.0;13.0;1.564;-0.207;Sostener y monitorear
+11;84.241;0.479;4166;1252218;Suba;83.411;4166.0;True;2.0;49.0;3.913;0.32;Sostener y monitorear
+12;79.993;0.507;482;136620;Barrios Unidos;82.612;482.0;True;1.0;12.0;8.783;0.976;Revisar cobertura o subregistro
+13;83.366;0.319;345;155083;Teusaquillo;83.711;345.0;True;1.0;8.0;5.159;1.382;Revisar cobertura o subregistro
+14;74.756;0.541;285;75471;Los Mártires;80.286;285.0;False;1.0;14.0;18.55;2.405;Revisar cobertura o subregistro
+15;90.462;0.614;336;80010;Antonio Nariño;88.54;336.0;True;1.0;10.0;12.498;1.013;Revisar cobertura o subregistro
+16;82.366;0.492;859;249985;Puente Aranda;83.374;859.0;True;1.0;11.0;4.4;0.333;Sostener y monitorear
+17;84.267;0.598;70;17177;La Candelaria;75.0;70.0;False;0.0;4.0;23.287;2.88;Revisar cobertura o subregistro
+18;83.053;0.639;1681;376325;Rafael Uribe Uribe;87.898;1681.0;True;1.0;2.0;0.531;-1.098;Prioridad de expansión
+19;85.133;0.679;3190;690843;Ciudad Bolívar;88.103;3190.0;True;4.0;39.0;5.645;-0.467;Sostener y monitorear
+20;88.384;1.046;24;3385;Sumapaz;;24.0;False;0.0;0.0;0.0;-3.365;Prioridad de expansión

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quién paga el cuidado y quién lo absorbe · Tablero</title>
+<style>
+:root{
+  --azul:#1F3864; --azul2:#2E4A7D; --rosa:#C0504D; --rosa2:#D98C8A;
+  --gris:#8A8F98; --linea:#E3E7ED; --fondo:#F6F7F9; --panel:#FFFFFF; --texto:#22262C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);
+     font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;font-size:14px}
+header{background:var(--azul);color:#fff;padding:22px 28px 46px}
+header .eyebrow{font-size:11px;letter-spacing:2.4px;opacity:.72;font-weight:600}
+header h1{margin:8px 0 2px;font-size:26px;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;opacity:.82;font-size:13.5px}
+header p.aut{margin-top:9px;opacity:.62;font-size:12px;letter-spacing:.2px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px 48px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:-26px 0 22px}
+.kpi{background:var(--panel);border:1px solid var(--linea);border-radius:10px;padding:14px 16px;
+     box-shadow:0 2px 10px rgba(31,56,100,.07)}
+.kpi .v{font-size:26px;font-weight:700;color:var(--azul);line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--gris);margin-top:5px;line-height:1.35}
+.kpi.acento .v{color:var(--rosa)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+.card{background:var(--panel);border:1px solid var(--linea);border-radius:10px;padding:16px 18px 14px;
+      box-shadow:0 1px 5px rgba(31,56,100,.05)}
+.c12{grid-column:span 12}.c7{grid-column:span 7}.c5{grid-column:span 5}
+.c6{grid-column:span 6}.c8{grid-column:span 8}.c4{grid-column:span 4}
+@media(max-width:980px){.c7,.c5,.c6,.c8,.c4{grid-column:span 12}}
+.card h2{margin:0 0 3px;font-size:15.5px;color:var(--azul);font-weight:700}
+.card .q{font-size:11.5px;color:var(--rosa);font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:7px}
+.card .sub{font-size:12.5px;color:var(--gris);margin:0 0 12px;line-height:1.45}
+.sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.sel button{border:1px solid var(--linea);background:#fff;border-radius:20px;padding:5px 12px;
+  font-size:12px;cursor:pointer;color:var(--azul);font-family:inherit;transition:.15s}
+.sel button:hover{border-color:var(--azul2)}
+.sel button.on{background:var(--azul);color:#fff;border-color:var(--azul)}
+svg{display:block;width:100%;overflow:visible}
+.bar{cursor:pointer;transition:opacity .15s}
+.bar:hover{opacity:.78}
+.lbl{font-size:11px;fill:var(--texto)}
+.lbl.sm{font-size:10px;fill:var(--gris)}
+.val{font-size:10.5px;fill:var(--texto);font-weight:600}
+.ax{stroke:var(--linea);stroke-width:1}
+.axt{font-size:10px;fill:var(--gris)}
+.pt{cursor:pointer;transition:.15s}
+.pt:hover{stroke:var(--azul);stroke-width:2}
+.sel-loc{stroke:var(--azul);stroke-width:2.5}
+.leyenda{display:flex;gap:16px;font-size:11.5px;color:var(--gris);margin-top:8px;flex-wrap:wrap}
+.leyenda i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-weight:600;color:#fff;background:var(--azul);padding:7px 9px;font-size:11.5px}
+td{padding:6px 9px;border-bottom:1px solid var(--linea)}
+tr.baja td{color:var(--gris);font-style:italic}
+tr:hover td{background:#F0F4FA;cursor:pointer}
+.nota{font-size:11.5px;color:var(--gris);margin-top:10px;line-height:1.5;
+      border-left:3px solid var(--linea);padding-left:10px}
+.alerta{background:#FFF6E8;border-left:3px solid #C9761E;padding:10px 12px;border-radius:0 6px 6px 0;
+        font-size:12px;line-height:1.5;margin-top:10px}
+.detalle{background:#F0F4FA;border-radius:8px;padding:12px 14px;font-size:12.5px;line-height:1.6}
+.detalle b{color:var(--azul)}
+footer{background:#fff;border-top:1px solid var(--linea);padding:20px 28px;font-size:11.5px;
+       color:var(--gris);line-height:1.6}
+footer b{color:var(--azul)}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">DATAJAM MULTIUNIVERSITARIO 2026 · EDICIÓN 3</div>
+  <h1>Quién paga el cuidado y quién lo absorbe</h1>
+  <p>Cuidado no remunerado derivado de la discapacidad en Bogotá D.C. · Vigencias 2020–2026</p>
+  <p class="aut">María Clareth Méndez Ramos · Jose Carlos Arroyo Cantero · Valentina Terán Barreto</p>
+</header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div class="card c7">
+      <div class="q">R1 · ¿Con qué grado de feminización?</div>
+      <h2>El cuidado no se reparte en ninguna etapa de la vida</h2>
+      <p class="sub">Sexo de la persona cuidadora según la etapa de vida de quien recibe el cuidado.</p>
+      <svg id="g_curso" viewBox="0 0 560 250"></svg>
+      <div class="leyenda"><span><i style="background:var(--rosa)"></i>Cuida una mujer</span>
+        <span><i style="background:var(--azul)"></i>Cuida un hombre</span></div>
+    </div>
+
+    <div class="card c5">
+      <div class="q">R1 · Mismo parentesco, distinto sexo</div>
+      <h2>La madre aparece 14 veces por cada padre</h2>
+      <p class="sub">Porcentaje del total de personas cuidadoras.</p>
+      <svg id="g_par" viewBox="0 0 420 250"></svg>
+    </div>
+
+    <div class="card c7">
+      <div class="q">R2 · ¿En qué localidades es mayor?</div>
+      <h2>Ranking territorial</h2>
+      <p class="sub">Haga clic en una localidad para resaltarla en todos los paneles.</p>
+      <div class="sel" id="sel_metrica"></div>
+      <svg id="g_rank" viewBox="0 0 560 430"></svg>
+    </div>
+
+    <div class="card c5">
+      <div class="q">R2 · ¿Con qué se asocia?</div>
+      <h2>El gradiente es socioeconómico</h2>
+      <p class="sub">Feminización estandarizada por estructura etaria, frente al nivel educativo del territorio.</p>
+      <svg id="g_grad" viewBox="0 0 420 300"></svg>
+      <div class="nota" id="nota_grad"></div>
+    </div>
+
+    <div class="card c6">
+      <div class="q">R5 · ¿Está la oferta donde está la carga?</div>
+      <h2>Oferta del Sistema Distrital de Cuidado frente a la demanda</h2>
+      <p class="sub">Servicios de las Manzanas del Cuidado frente a personas con cuidador familiar identificado.</p>
+      <svg id="g_of" viewBox="0 0 460 300"></svg>
+      <div class="alerta" id="alerta_of"></div>
+    </div>
+
+    <div class="card c6">
+      <div class="q">R4 · ¿Cómo evolucionó 2020–2026?</div>
+      <h2>La feminización cede, pero solo en la adultez</h2>
+      <p class="sub">Porcentaje de cuidadores familiares que son mujeres, por vigencia.</p>
+      <svg id="g_serie" viewBox="0 0 460 240"></svg>
+      <div class="nota">La vigencia 2020 tiene muy pocos registros y no es comparable.
+        De la caída total, cerca de una cuarta parte se explica por el cambio de composición
+        etaria del registro; el resto es cambio real y se concentra en la adultez.</div>
+    </div>
+
+    <div class="card c8">
+      <div class="q">Detalle</div>
+      <h2>Indicadores por localidad</h2>
+      <p class="sub">IFC*: feminización estandarizada · CCM: cuidado materno · CSR: adultos aún cuidados por su madre · DC: certificados que requieren ayuda.</p>
+      <div style="max-height:330px;overflow:auto"><table id="tabla"></table></div>
+      <div class="nota">Las localidades en gris tienen menos de 300 cuidadores identificados:
+        se muestran por transparencia pero no sustentan conclusiones.</div>
+    </div>
+
+    <div class="card c4">
+      <div class="q">Ficha</div>
+      <h2 id="det_titulo">Seleccione una localidad</h2>
+      <div class="detalle" id="detalle">Haga clic en cualquier barra, punto o fila de la tabla.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <b>Fuentes.</b> Población con discapacidad certificada en Bogotá D.C. — Secretaría Distrital de Salud,
+  Observatorio de Salud de Bogotá · Manzanas del Cuidado (Equipamiento Ancla y Servicios de la Manzana) —
+  Secretaría Distrital de la Mujer, vía servicio REST de IDECA, corte 16/12/2025.<br>
+  <b>Advertencias.</b> El registro mide <i>certificaciones</i>, no prevalencia: las diferencias territoriales
+  mezclan incidencia real con capacidad de acceder al trámite. Los indicadores de cuidado remunerado
+  requieren validación externa. El diseño es observacional: las asociaciones no son efectos causales.
+  El nivel educativo se usa como indicador aproximado de la posición económica del territorio.<br>
+  <b>Equipo.</b> María Clareth Méndez Ramos · Jose Carlos Arroyo Cantero · Valentina Terán Barreto<br>
+  <b>Generado por</b> el cuaderno de análisis del ejercicio. Formato HTML autocontenido, sin dependencias externas.
+</footer>
+
+<script>
+const D = {"locs": [{"loc": "Antonio Nariño", "n": 336, "ifc": 88.1, "ifc_std": 88.54, "ccm": 54.17, "csr": 48.11, "dc": 34.67, "cert": 969, "nad": 106, "ok": true, "sup": 8.88, "manzanas": 1, "servicios": 10, "serv_req": 0, "tcc": 0.614, "icod": 1.013}, {"loc": "Barrios Unidos", "n": 482, "ifc": 82.57, "ifc_std": 82.61, "ccm": 45.02, "csr": 40.94, "dc": 33.75, "cert": 1428, "nad": 149, "ok": true, "sup": 18.42, "manzanas": 1, "servicios": 12, "serv_req": 0, "tcc": 0.507, "icod": 0.976}, {"loc": "Bosa", "n": 3362, "ifc": 87.36, "ifc_std": 86.93, "ccm": 57.32, "csr": 40.7, "dc": 34.71, "cert": 9686, "nad": 1091, "ok": true, "sup": 3.17, "manzanas": 2, "servicios": 19, "serv_req": 0, "tcc": 0.638, "icod": -0.776}, {"loc": "Chapinero", "n": 311, "ifc": 83.92, "ifc_std": 84.65, "ccm": 47.27, "csr": 44.34, "dc": 33.8, "cert": 920, "nad": 106, "ok": true, "sup": 28.48, "manzanas": 1, "servicios": 5, "serv_req": 0, "tcc": 0.275, "icod": 1.278}, {"loc": "Ciudad Bolívar", "n": 3190, "ifc": 88.46, "ifc_std": 88.1, "ccm": 57.08, "csr": 43.19, "dc": 37.39, "cert": 8531, "nad": 1028, "ok": true, "sup": 2.84, "manzanas": 4, "servicios": 39, "serv_req": 0, "tcc": 0.679, "icod": -0.467}, {"loc": "Engativá", "n": 2934, "ifc": 81.25, "ifc_std": 81.7, "ccm": 50.1, "csr": 39.56, "dc": 35.46, "cert": 8274, "nad": 958, "ok": true, "sup": 11.53, "manzanas": 3, "servicios": 13, "serv_req": 0, "tcc": 0.505, "icod": -0.207}, {"loc": "Fontibón", "n": 979, "ifc": 85.6, "ifc_std": 85.24, "ccm": 55.36, "csr": 42.71, "dc": 27.92, "cert": 3507, "nad": 288, "ok": true, "sup": 13.72, "manzanas": 0, "servicios": 8, "serv_req": 0, "tcc": 0.363, "icod": 0.636}, {"loc": "Kennedy", "n": 3705, "ifc": 87.1, "ifc_std": 86.36, "ccm": 58.46, "csr": 43.24, "dc": 32.85, "cert": 11280, "nad": 1087, "ok": true, "sup": 8.18, "manzanas": 2, "servicios": 13, "serv_req": 0, "tcc": 0.484, "icod": -0.158}, {"loc": "La Candelaria", "n": 70, "ifc": 81.43, "ifc_std": 75.0, "ccm": 41.43, "csr": 25.0, "dc": 33.33, "cert": 210, "nad": 24, "ok": false, "sup": 10.0, "manzanas": 0, "servicios": 4, "serv_req": 0, "tcc": 0.598, "icod": 2.88}, {"loc": "Los Mártires", "n": 285, "ifc": 79.65, "ifc_std": 80.29, "ccm": 50.88, "csr": 44.05, "dc": 32.53, "cert": 876, "nad": 84, "ok": false, "sup": 8.9, "manzanas": 1, "servicios": 14, "serv_req": 0, "tcc": 0.541, "icod": 2.405}, {"loc": "Puente Aranda", "n": 859, "ifc": 82.42, "ifc_std": 83.37, "ccm": 47.85, "csr": 42.91, "dc": 32.1, "cert": 2676, "nad": 268, "ok": true, "sup": 11.17, "manzanas": 1, "servicios": 11, "serv_req": 0, "tcc": 0.492, "icod": 0.333}, {"loc": "Rafael Uribe Uribe", "n": 1681, "ifc": 87.51, "ifc_std": 87.9, "ccm": 52.23, "csr": 45.71, "dc": 35.63, "cert": 4718, "nad": 560, "ok": true, "sup": 3.88, "manzanas": 1, "servicios": 2, "serv_req": 0, "tcc": 0.639, "icod": -1.098}, {"loc": "San Cristóbal", "n": 2242, "ifc": 84.03, "ifc_std": 84.61, "ccm": 50.09, "csr": 38.54, "dc": 36.97, "cert": 6064, "nad": 794, "ok": true, "sup": 3.84, "manzanas": 3, "servicios": 10, "serv_req": 0, "tcc": 0.812, "icod": -1.692}, {"loc": "Santa Fe", "n": 460, "ifc": 81.52, "ifc_std": 82.83, "ccm": 44.78, "csr": 37.17, "dc": 33.41, "cert": 1377, "nad": 191, "ok": true, "sup": 6.46, "manzanas": 1, "servicios": 1, "serv_req": 0, "tcc": 0.585, "icod": -0.747}, {"loc": "Suba", "n": 4166, "ifc": 83.75, "ifc_std": 83.41, "ccm": 54.06, "csr": 40.78, "dc": 37.94, "cert": 10980, "nad": 1285, "ok": true, "sup": 13.32, "manzanas": 2, "servicios": 49, "serv_req": 0, "tcc": 0.479, "icod": 0.32}, {"loc": "Sumapaz", "n": 24, "ifc": 75.0, "ifc_std": null, "ccm": 16.67, "csr": 0.0, "dc": 17.39, "cert": 138, "nad": 2, "ok": false, "sup": 0.0, "manzanas": 0, "servicios": 0, "serv_req": 0, "tcc": 1.046, "icod": -3.365}, {"loc": "Teusaquillo", "n": 345, "ifc": 82.03, "ifc_std": 83.71, "ccm": 43.77, "csr": 46.94, "dc": 31.03, "cert": 1112, "nad": 98, "ok": true, "sup": 31.21, "manzanas": 1, "servicios": 8, "serv_req": 0, "tcc": 0.319, "icod": 1.382}, {"loc": "Tunjuelito", "n": 872, "ifc": 86.47, "ifc_std": 86.36, "ccm": 56.42, "csr": 47.02, "dc": 37.15, "cert": 2347, "nad": 319, "ok": true, "sup": 5.33, "manzanas": 1, "servicios": 1, "serv_req": 0, "tcc": 0.708, "icod": -1.461}, {"loc": "Usaquén", "n": 1447, "ifc": 85.0, "ifc_std": 85.18, "ccm": 53.84, "csr": 46.67, "dc": 35.32, "cert": 4097, "nad": 405, "ok": true, "sup": 24.43, "manzanas": 1, "servicios": 20, "serv_req": 0, "tcc": 0.354, "icod": 0.909}, {"loc": "Usme", "n": 2425, "ifc": 88.25, "ifc_std": 88.0, "ccm": 57.86, "csr": 43.98, "dc": 41.98, "cert": 5777, "nad": 839, "ok": true, "sup": 2.34, "manzanas": 1, "servicios": 8, "serv_req": 0, "tcc": 0.882, "icod": -2.159}], "cursoVida": [{"etapa": "Primera infancia", "madre": 88.74251497005989, "padre": 4.2315369261477045, "hija": 0.03992015968063872, "hijo": 0.0, "esposa": 0.03992015968063872, "esposo": 0.0}, {"etapa": "Infancia", "madre": 86.64412510566358, "padre": 5.621301775147929, "hija": 0.021132713440405747, "hijo": 0.021132713440405747, "esposa": 0.0, "esposo": 0.0}, {"etapa": "Adolescencia", "madre": 83.82279741164758, "padre": 7.018417122946739, "hija": 0.049776007964161276, "hijo": 0.0, "esposa": 0.0, "esposo": 0.049776007964161276}, {"etapa": "Juventud", "madre": 84.9438202247191, "padre": 6.128702757916241, "hija": 0.061287027579162406, "hijo": 0.10214504596527069, "esposa": 0.9805924412665985, "esposo": 0.4290091930541369}, {"etapa": "Adultez", "madre": 42.22268126420161, "padre": 3.1398471390208633, "hija": 7.787647180334642, "hijo": 4.162363148109895, "esposa": 14.893617021276595, "esposo": 9.336913860772569}, {"etapa": "Persona mayor de 60 años", "madre": 1.4483627204030227, "padre": 0.1102015113350126, "hija": 38.350125944584384, "hijo": 11.0044080604534, "esposa": 21.28463476070529, "esposo": 8.800377833753148}], "mujeresPorEtapa": [{"etapa": "Primera infancia", "mujer": 95.4}, {"etapa": "Infancia", "mujer": 94.0}, {"etapa": "Adolescencia", "mujer": 92.1}, {"etapa": "Juventud", "mujer": 92.2}, {"etapa": "Adultez", "mujer": 79.8}, {"etapa": "Persona mayor de 60 años", "mujer": 76.6}], "parentescoGlobal": [{"par": "Madre / Padre", "mujer": 54.17, "hombre": 3.72}, {"par": "Hija / Hijo", "mujer": 10.59, "hombre": 3.67}, {"par": "Esposa / Esposo", "mujer": 9.42, "hombre": 4.92}, {"par": "Hermana / Hermano", "mujer": 5.76, "hombre": 1.57}], "serie": [{"anio": 2020, "n": 170, "ifc": 78.24}, {"anio": 2021, "n": 3526, "ifc": 88.71}, {"anio": 2022, "n": 6534, "ifc": 86.03}, {"anio": 2023, "n": 7190, "ifc": 86.3}, {"anio": 2024, "n": 4649, "ifc": 84.02}, {"anio": 2025, "n": 5658, "ifc": 84.09}, {"anio": 2026, "n": 2448, "ifc": 83.66}], "kpi": {"total": 30175, "mujeres": 25799, "hombres": 4376, "ifc": 85.5, "razon": 5.9, "madre": 16345, "csr": 42.2, "csr_n": 4088, "manzanas": 27, "servicios": 247}};
+const AZUL="#1F3864", ROSA="#C0504D", GRIS="#8A8F98", ROSA2="#D98C8A";
+let selLoc = null;
+const ok = D.locs.filter(l=>l.ok);
+const N = (x,d=1)=> x==null||isNaN(x) ? "—" : Number(x).toLocaleString("es-CO",{minimumFractionDigits:d,maximumFractionDigits:d});
+const E = (t,a={},h="")=>{const s=`<${t} ${Object.entries(a).map(([k,v])=>`${k}="${v}"`).join(" ")}>${h}</${t}>`;return s};
+
+/* ---------- KPIs ---------- */
+const k = D.kpi;
+document.getElementById("kpis").innerHTML = [
+ [`${N(k.ifc,1)} %`, "de los cuidadores familiares son mujeres", 1],
+ [`${N(k.razon,2)} a 1`, "razón mujer : hombre entre quienes cuidan", 1],
+ [k.mujeres.toLocaleString("es-CO"), "mujeres cuidadoras identificadas", 0],
+ [k.madre.toLocaleString("es-CO"), "personas cuidadas por su madre", 0],
+ [`${N(k.csr,1)} %`, `adultos aún cuidados por su madre (${k.csr_n.toLocaleString("es-CO")} casos)`, 1],
+ [`${k.manzanas} / ${k.servicios}`, "manzanas y servicios de cuidado en la ciudad", 0],
+].map(([v,l,ac])=>`<div class="kpi ${ac?'acento':''}"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+/* ---------- Curso de vida ---------- */
+(()=>{const d=D.mujeresPorEtapa, W=560,H=250,ml=118,mr=52,mt=8,bh=(H-mt-14)/d.length;
+ let s="";
+ d.forEach((r,i)=>{const y=mt+i*bh, h=bh*0.62, w=(W-ml-mr)*r.mujer/100;
+  s+=E("rect",{x:ml,y:y,width:w,height:h,fill:ROSA,rx:2});
+  s+=E("rect",{x:ml+w,y:y,width:(W-ml-mr)-w,height:h,fill:AZUL,rx:2});
+  s+=E("text",{x:ml-8,y:y+h/2+4,"text-anchor":"end",class:"lbl"},r.etapa);
+  s+=E("text",{x:ml+w-6,y:y+h/2+4,"text-anchor":"end",class:"val",fill:"#fff"},N(r.mujer,0)+" %");
+ });
+ document.getElementById("g_curso").innerHTML=s;})();
+
+/* ---------- Parentesco ---------- */
+(()=>{const cv=D.cursoVida, tot=D.kpi.total;
+ // porcentajes globales por parentesco
+ const p=[["Madre / Padre",D.kpi.madre/tot*100,null]];
+ const g=D.parentescoGlobal;
+ const W=420,H=250,ml=104,mr=46,mt=10,gh=(H-mt-10)/g.length;
+ let s="";
+ g.forEach((r,i)=>{const y=mt+i*gh, h=gh*0.30, mx=Math.max(...g.map(x=>Math.max(x.mujer,x.hombre)));
+  const w1=(W-ml-mr)*r.mujer/mx, w2=(W-ml-mr)*r.hombre/mx;
+  s+=E("rect",{x:ml,y:y,width:w1,height:h,fill:ROSA,rx:2});
+  s+=E("rect",{x:ml,y:y+h+3,width:w2,height:h,fill:AZUL,rx:2});
+  s+=E("text",{x:ml+w1+5,y:y+h-1,class:"val"},N(r.mujer,1)+" %");
+  s+=E("text",{x:ml+w2+5,y:y+2*h+2,class:"val"},N(r.hombre,1)+" %");
+  s+=E("text",{x:ml-8,y:y+h+2,"text-anchor":"end",class:"lbl"},r.par);
+ });
+ document.getElementById("g_par").innerHTML=s;})();
+
+/* ---------- Ranking ---------- */
+const METRICAS=[["ifc_std","Feminización (IFC*)","%"],["csr","Sin relevo (CSR)","%"],
+                ["dc","Demanda (DC)","%"],["n","Volumen","casos"]];
+let metrica="ifc_std";
+document.getElementById("sel_metrica").innerHTML =
+  METRICAS.map(([k2,l])=>`<button data-m="${k2}" class="${k2==metrica?'on':''}">${l}</button>`).join("");
+document.querySelectorAll("#sel_metrica button").forEach(b=>b.onclick=()=>{
+  metrica=b.dataset.m;
+  document.querySelectorAll("#sel_metrica button").forEach(x=>x.classList.toggle("on",x===b));
+  dibujarRank();});
+
+function dibujarRank(){
+  const m=METRICAS.find(x=>x[0]===metrica);
+  const d=[...ok].filter(l=>l[metrica]!=null).sort((a,b)=>b[metrica]-a[metrica]);
+  const W=560,H=430,ml=124,mr=54,mt=6,bh=(H-mt-10)/d.length, mx=Math.max(...d.map(l=>l[metrica]));
+  const mn = metrica==="n" ? 0 : Math.min(...d.map(l=>l[metrica]))*0.94;
+  let s="";
+  d.forEach((l,i)=>{const y=mt+i*bh,h=bh*0.66;
+    const w=(W-ml-mr)*((l[metrica]-mn)/(mx-mn||1))*0.96+4;
+    const col = selLoc===l.loc ? AZUL : ROSA;
+    s+=E("rect",{x:ml,y:y,width:w,height:h,fill:col,rx:2,class:"bar","data-loc":l.loc});
+    s+=E("text",{x:ml-8,y:y+h/2+3.5,"text-anchor":"end",class:"lbl"+(selLoc===l.loc?"":""),
+                 "font-weight":selLoc===l.loc?"700":"400"},l.loc);
+    s+=E("text",{x:ml+w+6,y:y+h/2+3.5,class:"val"}, m[2]==="%"?N(l[metrica],1)+" %":l[metrica].toLocaleString("es-CO"));
+  });
+  document.getElementById("g_rank").innerHTML=s;
+  document.querySelectorAll("#g_rank .bar").forEach(b=>b.onclick=()=>elegir(b.dataset.loc));
+}
+
+/* ---------- Gradiente ---------- */
+function dibujarGrad(){
+  const d=ok.filter(l=>l.ifc_std!=null&&l.sup!=null);
+  const W=420,H=300,ml=50,mr=14,mt=12,mb=40;
+  const xs=d.map(l=>l.sup), ys=d.map(l=>l.ifc_std);
+  const x0=Math.min(...xs)-2,x1=Math.max(...xs)+2,y0=Math.min(...ys)-.6,y1=Math.max(...ys)+.6;
+  const X=v=>ml+(W-ml-mr)*(v-x0)/(x1-x0), Y=v=>H-mb-(H-mt-mb)*(v-y0)/(y1-y0);
+  const n=d.length, sx=xs.reduce((a,b)=>a+b,0), sy=ys.reduce((a,b)=>a+b,0);
+  const sxy=d.reduce((a,l)=>a+l.sup*l.ifc_std,0), sxx=xs.reduce((a,b)=>a+b*b,0);
+  const b1=(n*sxy-sx*sy)/(n*sxx-sx*sx), b0=(sy-b1*sx)/n;
+  let s="";
+  s+=E("line",{x1:ml,y1:H-mb,x2:W-mr,y2:H-mb,class:"ax"});
+  s+=E("line",{x1:ml,y1:mt,x2:ml,y2:H-mb,class:"ax"});
+  for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4;
+    s+=E("text",{x:ml-6,y:Y(v)+3,"text-anchor":"end",class:"axt"},N(v,0));}
+  for(let i=0;i<=4;i++){const v=x0+(x1-x0)*i/4;
+    s+=E("text",{x:X(v),y:H-mb+15,"text-anchor":"middle",class:"axt"},N(v,0)+"%");}
+  s+=E("line",{x1:X(x0),y1:Y(b0+b1*x0),x2:X(x1),y2:Y(b0+b1*x1),stroke:AZUL,"stroke-width":1.4,"stroke-dasharray":"5 4"});
+  d.forEach(l=>{const r=Math.max(4,Math.sqrt(l.n)/9);
+    s+=E("circle",{cx:X(l.sup),cy:Y(l.ifc_std),r:r,fill:ROSA,"fill-opacity":.75,
+      stroke:selLoc===l.loc?AZUL:"#fff","stroke-width":selLoc===l.loc?2.5:1.2,class:"pt","data-loc":l.loc});});
+  s+=E("text",{x:(W+ml)/2,y:H-8,"text-anchor":"middle",class:"axt"},"% con educación superior");
+  const cy1=(mt+(H-mb))/2;
+  s+=E("text",{x:11,y:cy1,class:"axt","text-anchor":"middle",
+               transform:`rotate(-90 11 ${cy1})`},"IFC* (%)");
+  document.getElementById("g_grad").innerHTML=s;
+  document.querySelectorAll("#g_grad .pt").forEach(p=>p.onclick=()=>elegir(p.dataset.loc));
+  // rho de Spearman
+  const rk=a=>{const s2=[...a].sort((x,y)=>x-y);return a.map(v=>s2.indexOf(v)+1)};
+  const rx=rk(xs), ry=rk(ys), mrx=rx.reduce((a,b)=>a+b,0)/n, mry=ry.reduce((a,b)=>a+b,0)/n;
+  let num=0,dx=0,dy=0; for(let i=0;i<n;i++){num+=(rx[i]-mrx)*(ry[i]-mry);dx+=(rx[i]-mrx)**2;dy+=(ry[i]-mry)**2;}
+  const rho=num/Math.sqrt(dx*dy);
+  document.getElementById("nota_grad").innerHTML =
+    `Correlación de rangos <b>Spearman = ${N(rho,2)}</b>. El tamaño del círculo es proporcional al
+     número de cuidadores. La estandarización etaria confirma que el gradiente no lo produce
+     la composición de edades de cada registro local.`;
+}
+
+/* ---------- Oferta vs demanda ---------- */
+function dibujarOferta(){
+  const d=ok;
+  const W=460,H=300,ml=52,mr=16,mt=12,mb=40;
+  const x1=Math.max(...d.map(l=>l.n))*1.06, y1=Math.max(...d.map(l=>l.servicios))*1.12;
+  const X=v=>ml+(W-ml-mr)*v/x1, Y=v=>H-mb-(H-mt-mb)*v/y1;
+  let s="";
+  s+=E("line",{x1:ml,y1:H-mb,x2:W-mr,y2:H-mb,class:"ax"});
+  s+=E("line",{x1:ml,y1:mt,x2:ml,y2:H-mb,class:"ax"});
+  const kk=d.reduce((a,l)=>a+l.servicios,0)/d.reduce((a,l)=>a+l.n,0);
+  s+=E("line",{x1:X(0),y1:Y(0),x2:X(x1),y2:Y(kk*x1),stroke:GRIS,"stroke-width":1.2,"stroke-dasharray":"5 4"});
+  s+=E("text",{x:X(x1)-4,y:Y(kk*x1)-6,"text-anchor":"end",class:"axt"},"oferta proporcional a la demanda");
+  // Puntos
+  d.forEach(l=>{const bajo = l.servicios < kk*l.n*0.6;
+    s+=E("circle",{cx:X(l.n),cy:Y(l.servicios),r:6,fill:bajo?ROSA:AZUL,"fill-opacity":.8,
+      stroke:selLoc===l.loc?AZUL:"#fff","stroke-width":selLoc===l.loc?2.5:1.2,class:"pt","data-loc":l.loc});});
+
+  // Etiquetas con separación vertical: si dos quedan a menos de 12 px se
+  // desplaza la siguiente, y si la etiqueta se saldría por la derecha se
+  // coloca a la izquierda del punto.
+  const et = d.filter(l=>l.servicios < kk*l.n*0.6 || selLoc===l.loc)
+              .map(l=>({loc:l.loc, x:X(l.n), y:Y(l.servicios)}))
+              .sort((a,b)=>a.y-b.y);
+  let ultimo = -99;
+  et.forEach(e=>{
+    let y = e.y + 3.5;
+    if(y - ultimo < 12) y = ultimo + 12;
+    ultimo = y;
+    const derecha = e.x + 9 + e.loc.length*5.4 < W - mr + 30;
+    s+=E("text",{x: derecha ? e.x+9 : e.x-9, y:y,
+                 "text-anchor": derecha ? "start" : "end",
+                 class:"lbl sm"}, e.loc);
+  });
+  for(let i=0;i<=3;i++){const v=y1*i/3; s+=E("text",{x:ml-6,y:Y(v)+3,"text-anchor":"end",class:"axt"},Math.round(v));}
+  for(let i=0;i<=3;i++){const v=x1*i/3; s+=E("text",{x:X(v),y:H-mb+15,"text-anchor":"middle",class:"axt"},Math.round(v).toLocaleString("es-CO"));}
+  s+=E("text",{x:(W+ml)/2,y:H-8,"text-anchor":"middle",class:"axt"},"personas con cuidador familiar identificado");
+  const cy2=(mt+(H-mb))/2;
+  s+=E("text",{x:11,y:cy2,class:"axt","text-anchor":"middle",
+               transform:`rotate(-90 11 ${cy2})`},"servicios de cuidado");
+  document.getElementById("g_of").innerHTML=s;
+  document.querySelectorAll("#g_of .pt").forEach(p=>p.onclick=()=>elegir(p.dataset.loc));
+  const bajos=d.filter(l=>l.servicios<kk*l.n*0.6).sort((a,b)=>(a.servicios/a.n)-(b.servicios/b.n));
+  document.getElementById("alerta_of").innerHTML =
+    `<b>Territorios con alta demanda y baja oferta:</b> ${bajos.map(l=>l.loc).join(" · ")}.
+     Son los candidatos a priorización para la expansión del Sistema Distrital de Cuidado.
+     La línea punteada marca la proporción promedio de la ciudad.`;
+}
+
+/* ---------- Serie ---------- */
+(()=>{const d=D.serie.filter(r=>r.n>=1000);
+ const W=460,H=240,ml=48,mr=16,mt=14,mb=34;
+ const y0=Math.min(...d.map(r=>r.ifc))-2, y1=Math.max(...d.map(r=>r.ifc))+2;
+ const X=i=>ml+(W-ml-mr)*i/(d.length-1), Y=v=>H-mb-(H-mt-mb)*(v-y0)/(y1-y0);
+ let s="";
+ s+=E("line",{x1:ml,y1:H-mb,x2:W-mr,y2:H-mb,class:"ax"});
+ for(let i=0;i<=3;i++){const v=y0+(y1-y0)*i/3;
+   s+=E("line",{x1:ml,y1:Y(v),x2:W-mr,y2:Y(v),stroke:"#EFF2F6"});
+   s+=E("text",{x:ml-6,y:Y(v)+3,"text-anchor":"end",class:"axt"},N(v,0));}
+ s+=E("polyline",{points:d.map((r,i)=>`${X(i)},${Y(r.ifc)}`).join(" "),fill:"none",stroke:ROSA,"stroke-width":2.4});
+ d.forEach((r,i)=>{s+=E("circle",{cx:X(i),cy:Y(r.ifc),r:4.5,fill:ROSA,stroke:"#fff","stroke-width":1.6});
+   s+=E("text",{x:X(i),y:Y(r.ifc)-11,"text-anchor":"middle",class:"val"},N(r.ifc,1));
+   s+=E("text",{x:X(i),y:H-mb+15,"text-anchor":"middle",class:"axt"},r.anio);});
+ const cy3=(mt+(H-mb))/2;
+ s+=E("text",{x:11,y:cy3,class:"axt","text-anchor":"middle",
+              transform:`rotate(-90 11 ${cy3})`},"% mujeres");
+ document.getElementById("g_serie").innerHTML=s;})();
+
+/* ---------- Tabla ---------- */
+function dibujarTabla(){
+  const d=[...D.locs].sort((a,b)=>b.n-a.n);
+  let s="<tr><th>Localidad</th><th>Cuidadores</th><th>IFC*</th><th>CCM</th><th>CSR</th><th>DC</th><th>Manzanas</th><th>Servicios</th></tr>";
+  d.forEach(l=>{s+=`<tr class="${l.ok?'':'baja'}" data-loc="${l.loc}">
+    <td>${l.loc}</td><td>${l.n.toLocaleString("es-CO")}</td>
+    <td>${l.ifc_std==null?"—":N(l.ifc_std,1)+" %"}</td><td>${N(l.ccm,1)} %</td>
+    <td>${N(l.csr,1)} %</td><td>${N(l.dc,1)} %</td>
+    <td>${l.manzanas}</td><td>${l.servicios}</td></tr>`;});
+  document.getElementById("tabla").innerHTML=s;
+  document.querySelectorAll("#tabla tr[data-loc]").forEach(t=>t.onclick=()=>elegir(t.dataset.loc));
+}
+
+/* ---------- Selección ---------- */
+function elegir(loc){
+  selLoc = selLoc===loc ? null : loc;
+  dibujarRank(); dibujarGrad(); dibujarOferta();
+  const l=D.locs.find(x=>x.loc===selLoc);
+  const t=document.getElementById("det_titulo"), c=document.getElementById("detalle");
+  if(!l){t.textContent="Seleccione una localidad";
+    c.innerHTML="Haga clic en cualquier barra, punto o fila de la tabla.";return;}
+  t.textContent=l.loc;
+  const kk=ok.reduce((a,x)=>a+x.servicios,0)/ok.reduce((a,x)=>a+x.n,0);
+  const esp=Math.round(kk*l.n);
+  c.innerHTML=`
+   <b>${l.n.toLocaleString("es-CO")}</b> personas con cuidador familiar identificado<br>
+   <b>${l.cert.toLocaleString("es-CO")}</b> certificaciones · <b>${N(l.dc,1)} %</b> requiere ayuda<br><br>
+   Feminización estandarizada · <b>${l.ifc_std==null?"—":N(l.ifc_std,1)+" %"}</b><br>
+   Cuidado materno · <b>${N(l.ccm,1)} %</b><br>
+   Sin relevo (adultos) · <b>${N(l.csr,1)} %</b> de ${l.nad}<br>
+   Educación superior · <b>${N(l.sup,1)} %</b><br><br>
+   Manzanas del Cuidado · <b>${l.manzanas}</b><br>
+   Servicios · <b>${l.servicios}</b> (esperados ${esp} si la oferta fuera proporcional)<br>
+   Servicios «para quienes requieren cuidado» · <b>${l.serv_req}</b>
+   ${l.ok?"":"<br><br><i>Base insuficiente: menos de 300 cuidadores. No sustenta conclusiones.</i>"}`;
+}
+
+dibujarRank(); dibujarGrad(); dibujarOferta(); dibujarTabla();
+</script>
+</body>
+</html>
