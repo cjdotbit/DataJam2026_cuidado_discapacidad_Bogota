@@ -207,9 +207,9 @@ El notebook contiene el proceso completo de análisis, desde la descarga de las 
 
 ##  Autores
 
-**María Clareth Méndez Ramos**
-**Jose Carlos Arroyo Cantero**
-**Valentina Terán Barreto**
+**María Clareth Méndez Ramos**, 
+**Jose Carlos Arroyo Cantero**,
+**Valentina Terán Barreto**,
 
 **DataJam Multiuniversitario 2026 — Edición 3**
 </div>
