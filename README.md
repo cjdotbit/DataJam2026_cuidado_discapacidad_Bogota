@@ -212,8 +212,9 @@ El notebook contiene el proceso completo de análisis, desde la descarga de las 
 **Valentina Terán Barreto**,
 
 **DataJam Multiuniversitario 2026 — Edición 3**
-</div>
-<div align="center">
-  <img src="pictures/Logo_unisucre.png" alt="LogoUnisucre" width="100" />
-</div>
 
+<div align="center">
+  <img src="pictures/Logo_unisucre.png" alt="Logo Unisucre" width="100" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="pictures/logo_gemma.jpeg" alt="Logo Unisucre" width="100" />
+</div>
