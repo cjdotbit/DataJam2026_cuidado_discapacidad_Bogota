@@ -214,7 +214,7 @@ El notebook contiene el proceso completo de análisis, desde la descarga de las 
 **DataJam Multiuniversitario 2026 — Edición 3**
 
 <div align="center">
-  <img src="pictures/Logo_unisucre.png" alt="Logo Unisucre" width="100" />
+  <img src="pictures/Logo_unisucre.png" alt="Logo Unisucre" height="180" />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="pictures/logo_gemma.jpeg" alt="Logo Unisucre" width="100" />
+  <img src="pictures/logo_gemma.png" alt="Logo Gemma" height="180" />
 </div>
